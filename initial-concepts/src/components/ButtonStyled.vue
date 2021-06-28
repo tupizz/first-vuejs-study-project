@@ -1,5 +1,5 @@
 <template>
-  <button class="button-styled">Botão estilizado</button>
+  <button class="button-styled">{{ text }}</button>
 </template>
 
 <script lang="ts">
@@ -8,6 +8,12 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   setup() {
     return {}
+  },
+  props: {
+    text: {
+      type: String,
+      default: 'Botão'
+    }
   }
 })
 </script>

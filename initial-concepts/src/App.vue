@@ -3,7 +3,7 @@
     <!-- Header importando -->
     <Header />
 
-    <ButtonStyled />
+    <ButtonStyled text="teste" />
 
     <!-- Linha -->
     <hr />
