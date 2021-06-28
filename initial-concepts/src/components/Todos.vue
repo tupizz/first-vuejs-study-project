@@ -2,9 +2,29 @@
   <div>
     <h1>Todo Modules</h1>
 
+    <a href="#intern" v-on:click="something">intern link 1</a>
+    <a href="#intern" v-on:click.prevent="something">intern link 2 </a>
+    <a href="#intern" v-on:click.once="something">intern link 3</a>
+    <a href="#intern" v-on:click.once.prevent="something">intern link 4</a>
+
+    <!-- insted of using 'v-on:' we can use just '@'  -->
+    <a href="#intern" @click.once.prevent="something">intern link 4</a>
+
+    <!-- Event handling // Event modifiers  -->
+    <!-- Whenever I press "enter" this will fire up -->
+    <input type="text" @keyup.enter="keyupEventEnter" />
+
     <ul>
       <li v-for="todo in notDoneTodos" :key="todo.text">
-        {{ todo.text }}
+        <!-- <a
+          v-bind:class="todo.done ? 'done' : 'not-done'"
+          v-bind:href="todo.href"
+          >{{ todo.text }}</a
+        > -->
+        <!-- The directive v-bind has a shortcut that is ":" -->
+        <a :class="todo.done ? 'done' : 'not-done'" :href="todo.href">{{
+          todo.text
+        }}</a>
         <button class="done-todo" @click="doneIt(todo)">finalizar ✅</button>
       </li>
     </ul>
@@ -17,6 +37,7 @@ import { defineComponent } from 'vue'
 interface Todo {
   text: string
   done: boolean
+  href: string
 }
 
 export default defineComponent({
@@ -36,14 +57,36 @@ export default defineComponent({
       todoItem!.done = true
 
       this.todos = todosCopy
+    },
+    something() {
+      console.log('was clicked! 😅')
+    },
+    keyupEventEnter() {
+      console.log('keyup')
     }
   },
   created() {
     this.todos = [
-      { text: 'Estudar Typescript', done: true },
-      { text: 'Lavar os pratos', done: false },
-      { text: 'Ler um livro', done: false },
-      { text: 'Aprender Nuxt.js', done: true }
+      {
+        text: 'Estudar Typescript',
+        href: 'www.amazon.com/product1',
+        done: true
+      },
+      {
+        text: 'Lavar os pratos',
+        href: 'https://www.amazon.com/product1',
+        done: false
+      },
+      {
+        text: 'Ler um livro',
+        href: 'https://www.amazon.com/product1',
+        done: false
+      },
+      {
+        text: 'Aprender Nuxt.js',
+        href: 'https://www.amazon.com/product1',
+        done: true
+      }
     ]
   },
   watch: {
@@ -70,6 +113,10 @@ div {
 
 ul li {
   margin-top: 5px;
+}
+
+.not-done {
+  color: darkred;
 }
 
 .done-todo {
